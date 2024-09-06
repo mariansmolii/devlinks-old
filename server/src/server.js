@@ -3,6 +3,7 @@ import pino from 'pino-http';
 import cors from 'cors';
 
 import env from './utils/env.js';
+import authRouter from './routers/api/auth-router.js';
 
 const PORT = env('PORT', 3000);
 
@@ -19,6 +20,8 @@ const startServer = () => {
       },
     }),
   );
+
+  app.use('/api/auth', authRouter);
 
   app.use('*', (req, res, next) => {
     res.status(404).json({
