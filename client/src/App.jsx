@@ -1,5 +1,71 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Toaster } from "react-hot-toast";
+import { Route, Routes } from "react-router-dom";
+import { refreshUser } from "./store/auth/authOperations";
+
+import PublicRoute from "./guards/PublicRoute";
+import PrivateRoute from "./guards/PrivateRoute";
+
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import LinksPage from "./pages/LinksPage/LinksPage";
+import MainLayout from "./layouts/MainLayout/MainLayout";
+import AuthLayout from "./layouts/AuthLayout/AuthLayout";
+
 const App = () => {
-  return <div>App</div>;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route
+            index
+            element={
+              <PrivateRoute>
+                <LinksPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="profile"
+            element={
+              <PrivateRoute>
+                <ProfilePage />
+              </PrivateRoute>
+            }
+          />
+        </Route>
+
+        <Route element={<AuthLayout />}>
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <LoginPage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/registration"
+            element={
+              <PublicRoute>
+                <RegisterPage />
+              </PublicRoute>
+            }
+          />
+        </Route>
+      </Routes>
+
+      <Toaster position="bottom-center" toastOptions={{ duration: 2500 }} />
+    </>
+  );
 };
 
 export default App;
