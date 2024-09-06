@@ -22,17 +22,17 @@ jobs:
       NODE_VERSION: "20"
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: client
+
       - name: Install node
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: "npm"
           cache-dependency-path: client/package-lock.json
-
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          sparse-checkout: client
 
       - name: Install dependencies
         run: npm install
