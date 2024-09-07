@@ -7,11 +7,18 @@ on:
       - server-dev
     paths:
       - "server/**"
+      - "!server/.gitignore"
+      - "!server/README.md"
+      - "!server/.env.example"
   pull_request:
     branches:
       - main
     paths:
       - "server/**"
+      - "!server/.gitignore"
+      - "!server/README.md"
+      - "!server/.env.example"
+    types: [opened, synchronize]
 
 jobs:
   test:

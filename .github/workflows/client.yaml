@@ -7,11 +7,18 @@ on:
       - client-dev
     paths:
       - "client/**"
+      - "!client/.gitignore"
+      - "!client/README.md"
+      - "!client/.env.example"
   pull_request:
     branches:
       - main
     paths:
       - "client/**"
+      - "!client/.gitignore"
+      - "!client/README.md"
+      - "!client/.env.example"
+    types: [opened, synchronize]
 
 jobs:
   build:
