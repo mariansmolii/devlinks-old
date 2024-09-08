@@ -1,0 +1,7 @@
+const CLOUDINARY = {
+  CLOUD_NAME: 'CLOUD_NAME',
+  API_KEY: 'API_KEY',
+  API_SECRET: 'API_SECRET',
+};
+
+export default CLOUDINARY;

@@ -1,7 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { handleSaveError, runValidatorAtUpdate } from './hooks.js';
-
-export const emailRegexp = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+import { emailRegexp } from '../constants/index.js';
 
 const userSchema = new Schema(
   {
