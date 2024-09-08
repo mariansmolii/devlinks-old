@@ -6,6 +6,7 @@ import {
   selectIsRefreshing,
   selectToken,
   selectUserEmail,
+  selectUserId,
 } from "../store/auth/authSelectors";
 
 const useAuth = () => {
@@ -15,8 +16,17 @@ const useAuth = () => {
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
   const isRefreshing = useSelector(selectIsRefreshing);
+  const userId = useSelector(selectUserId);
 
-  return { isLoggedIn, token, userEmail, isLoading, error, isRefreshing };
+  return {
+    isLoggedIn,
+    token,
+    userEmail,
+    isLoading,
+    error,
+    isRefreshing,
+    userId,
+  };
 };
 
 export default useAuth;
