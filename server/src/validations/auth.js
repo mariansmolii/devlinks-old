@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { emailRegexp } from '../models/User.js';
+import { emailRegexp } from '../constants/index.js';
 
 export const userRegisterSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
