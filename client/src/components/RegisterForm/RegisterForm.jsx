@@ -4,7 +4,7 @@ import { register } from "../../store/auth/authOperations";
 
 import toast from "react-hot-toast";
 import Input from "../Input/Input";
-import authSchemes from "../../utils/schemas/validationSchemas";
+import authScheme from "../../utils/schemas/authScheme";
 import Button from "../Button/Button";
 import BtnLoader from "../Loader/BtnLoader";
 import CustomToast from "../CustomToast/CustomToast";
@@ -29,7 +29,7 @@ const RegisterForm = () => {
       password: "",
       confirmPassword: "",
     },
-    validationSchema: authSchemes.registerValidationSchema,
+    validationSchema: authScheme.registerValidationScheme,
     onSubmit: async ({ email, password, confirmPassword }) => {
       if (!email.trim() || !password.trim() || !confirmPassword.trim()) {
         return;
