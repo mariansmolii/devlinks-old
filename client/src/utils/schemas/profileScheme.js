@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
 const profileValidationScheme = Yup.object().shape({
   firstName: Yup.string().trim().required("Can't be empty"),
