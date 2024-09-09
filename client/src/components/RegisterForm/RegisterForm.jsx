@@ -73,6 +73,7 @@ const RegisterForm = () => {
           value={values.email}
           iconName="icon-email"
           error={touched.email && errors.email}
+          className={styles.wrapper}
         />
 
         {touched.email && errors.email ? (
@@ -94,6 +95,7 @@ const RegisterForm = () => {
           value={values.password}
           iconName="icon-password"
           error={touched.password && errors.password}
+          className={styles.wrapper}
         />
         {touched.password && errors.password ? (
           <div className={styles.error}>
@@ -114,6 +116,7 @@ const RegisterForm = () => {
           value={values.confirmPassword}
           iconName="icon-password"
           error={touched.confirmPassword && errors.confirmPassword}
+          className={styles.wrapper}
         />
         {touched.confirmPassword && errors.confirmPassword ? (
           <div className={styles.error}>
@@ -121,6 +124,8 @@ const RegisterForm = () => {
           </div>
         ) : null}
       </div>
+
+      <p className={styles.text}>Password must contain at least 8 characters</p>
 
       <Button
         title={isLoading ? <BtnLoader /> : "Create new account"}
