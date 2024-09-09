@@ -31,8 +31,6 @@ const profileSlice = createSlice({
       state.user.imagePreview = payload;
     },
     updateFullNameAndEmail: (state, { payload }) => {
-      console.log(payload);
-
       state.user = {
         ...state.user,
         ...payload,
