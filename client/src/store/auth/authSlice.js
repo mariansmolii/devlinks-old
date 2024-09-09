@@ -9,6 +9,7 @@ import {
 
 const initialState = {
   user: {
+    id: "",
     email: "",
   },
   token: null,
