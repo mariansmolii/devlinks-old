@@ -18,14 +18,16 @@ const Input = ({
 }) => {
   return (
     <div className={clsx(styles.wrapper, className)}>
-      <label
-        htmlFor={id}
-        className={clsx(styles.label, { [styles.error]: error })}
-      >
-        {label}
-      </label>
+      {label && (
+        <label
+          htmlFor={id}
+          className={clsx(styles.label, { [styles.error]: error })}
+        >
+          {label}
+        </label>
+      )}
       <div className={styles.input}>
-        <Icon iconName={iconName} w={16} />
+        {iconName && <Icon iconName={iconName} w={16} />}
         <input
           type={type}
           name={name}
@@ -45,7 +47,7 @@ export default Input;
 
 Input.propTypes = {
   id: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   placeholder: PropTypes.string,
   className: PropTypes.string,
   value: PropTypes.string.isRequired,
@@ -53,6 +55,6 @@ Input.propTypes = {
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired,
-  iconName: PropTypes.string.isRequired,
+  iconName: PropTypes.string,
   error: PropTypes.string,
 };
