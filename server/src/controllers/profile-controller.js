@@ -18,6 +18,16 @@ const getProfile = async (req, res) => {
 const updateProfileImage = async (req, res) => {
   const { _id: owner } = req.user;
 
+  const profile = await Profile.findOne({ owner });
+
+  if (profile && profile.imageURL) {
+    const publicId = profile.imageURL.split('/').pop().split('.')[0];
+
+    await cloudinary.uploader.destroy(
+      env('CLOUDINARY_FOLDER_NAME') + '/' + publicId,
+    );
+  }
+
   const { url: image } = await cloudinary.uploader.upload(req.file.path, {
     folder: env('CLOUDINARY_FOLDER_NAME'),
   });
