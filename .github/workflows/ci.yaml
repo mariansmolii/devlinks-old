@@ -6,9 +6,13 @@ on:
       - main
       - client-dev
       - server-dev
+    paths-ignore:
+      - ".github/**"
   pull_request:
     branches:
       - main
+    paths-ignore:
+      - ".github/**"
     types: [opened, synchronize]
 
 jobs:
@@ -51,6 +55,7 @@ jobs:
         run: echo "WORKDIR=${{ steps.filter.outputs.client == 'true' && 'client' || 'server' }}" >> $GITHUB_ENV
 
       - name: Install node
+        if: steps.filter.outputs.client == 'true' || steps.filter.outputs.server == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
