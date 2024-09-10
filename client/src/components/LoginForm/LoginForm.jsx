@@ -4,7 +4,7 @@ import { login } from "../../store/auth/authOperations";
 
 import toast from "react-hot-toast";
 import Input from "../Input/Input";
-import authSchemes from "../../utils/schemas/validationSchemas";
+import authScheme from "../../utils/schemas/authScheme";
 import Button from "../Button/Button";
 import BtnLoader from "../Loader/BtnLoader";
 import CustomToast from "../CustomToast/CustomToast";
@@ -28,7 +28,7 @@ const LoginForm = () => {
       email: "",
       password: "",
     },
-    validationSchema: authSchemes.loginValidationSchema,
+    validationSchema: authScheme.loginValidationScheme,
     onSubmit: async ({ email, password }) => {
       if (!email.trim() || !password.trim()) {
         return;

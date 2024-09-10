@@ -9,3 +9,5 @@ export const selectError = (state) => state.auth.error;
 export const selectUserEmail = (state) => state.auth.user.email;
 
 export const selectIsRefreshing = (state) => state.auth.isRefreshing;
+
+export const selectUserId = (state) => state.auth.user.id;

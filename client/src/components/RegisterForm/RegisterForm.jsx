@@ -4,7 +4,7 @@ import { register } from "../../store/auth/authOperations";
 
 import toast from "react-hot-toast";
 import Input from "../Input/Input";
-import authSchemes from "../../utils/schemas/validationSchemas";
+import authScheme from "../../utils/schemas/authScheme";
 import Button from "../Button/Button";
 import BtnLoader from "../Loader/BtnLoader";
 import CustomToast from "../CustomToast/CustomToast";
@@ -29,7 +29,7 @@ const RegisterForm = () => {
       password: "",
       confirmPassword: "",
     },
-    validationSchema: authSchemes.registerValidationSchema,
+    validationSchema: authScheme.registerValidationScheme,
     onSubmit: async ({ email, password, confirmPassword }) => {
       if (!email.trim() || !password.trim() || !confirmPassword.trim()) {
         return;
@@ -73,6 +73,7 @@ const RegisterForm = () => {
           value={values.email}
           iconName="icon-email"
           error={touched.email && errors.email}
+          className={styles.wrapper}
         />
 
         {touched.email && errors.email ? (
@@ -94,6 +95,7 @@ const RegisterForm = () => {
           value={values.password}
           iconName="icon-password"
           error={touched.password && errors.password}
+          className={styles.wrapper}
         />
         {touched.password && errors.password ? (
           <div className={styles.error}>
@@ -114,6 +116,7 @@ const RegisterForm = () => {
           value={values.confirmPassword}
           iconName="icon-password"
           error={touched.confirmPassword && errors.confirmPassword}
+          className={styles.wrapper}
         />
         {touched.confirmPassword && errors.confirmPassword ? (
           <div className={styles.error}>
@@ -121,6 +124,8 @@ const RegisterForm = () => {
           </div>
         ) : null}
       </div>
+
+      <p className={styles.text}>Password must contain at least 8 characters</p>
 
       <Button
         title={isLoading ? <BtnLoader /> : "Create new account"}

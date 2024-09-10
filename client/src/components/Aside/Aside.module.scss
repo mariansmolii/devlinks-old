@@ -1,0 +1,90 @@
+@use "../../scss/utils/mixins" as mx;
+@use "../../scss/utils/variables" as var;
+@use "../../scss/utils/functions" as *;
+
+.aside {
+  display: none;
+  position: relative;
+  padding: 102px 127px;
+  background-color: get-color("white");
+  border-radius: var.$border-radius-xl;
+
+  @include mx.breakpoint(desktop) {
+    display: block;
+  }
+}
+
+.circle {
+  position: absolute;
+  top: 167px;
+  left: 231px;
+  width: 96px;
+  height: 96px;
+  border-radius: 100%;
+  background-color: get-color("very-light-grey");
+}
+.img {
+  position: absolute;
+  top: 167px;
+  left: 231px;
+  width: 96px;
+  height: 96px;
+  border-radius: 100%;
+  border: 4px solid get-color("purple");
+  object-fit: cover;
+}
+
+.infoWrapper {
+  position: absolute;
+  top: 287px;
+  left: 201px;
+
+  @include mx.flex-center;
+  flex-direction: column;
+
+  > div > h2 {
+    text-align: center;
+    font-weight: 600;
+    color: get-color("dark-grey");
+    @include mx.font-size(18, 27);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  > div > p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    @include mx.font-size(14, 21);
+  }
+}
+
+.fullNameBlock {
+  width: 160px;
+  height: 16px;
+  background-color: get-color("very-light-grey");
+  border-radius: var.$border-radius-xxl;
+  margin-bottom: 13px;
+
+  &.isFullName {
+    background-color: transparent;
+
+    @include mx.flex-center;
+  }
+}
+
+.emailBlock {
+  width: 140px;
+  height: 8px;
+  background-color: get-color("very-light-grey");
+  border-radius: var.$border-radius-xxl;
+
+  &.isEmail {
+    background-color: transparent;
+
+    @include mx.flex-center;
+  }
+}

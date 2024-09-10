@@ -1,17 +1,19 @@
-import { combineReducers } from '@reduxjs/toolkit';
-import { authReducer } from './auth/authSlice';
+import { combineReducers } from "@reduxjs/toolkit";
+import { authReducer } from "./auth/authSlice";
+import { profileReducer } from "./profile/profileSlice";
 
-import persistReducer from 'redux-persist/lib/persistReducer';
-import storage from 'redux-persist/lib/storage';
+import persistReducer from "redux-persist/lib/persistReducer";
+import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
-  key: 'auth',
+  key: "auth",
   storage,
-  whitelist: ['token'],
+  whitelist: ["token"],
 };
 
 const persistedReducer = persistReducer(persistConfig, authReducer);
 
 export const reducer = combineReducers({
   auth: persistedReducer,
+  profile: profileReducer,
 });
