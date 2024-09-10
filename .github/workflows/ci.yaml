@@ -83,7 +83,7 @@ jobs:
     name: Build and push
 
     needs: [build]
-    if: ${{ github.ref == 'refs/heads/main' && needs.build.outputs.client == 'true' || needs.build.outputs.server == 'true' }}
+    if: ${{ github.ref == 'refs/heads/main' && (needs.build.outputs.client == 'true' || needs.build.outputs.server == 'true') }}
 
     runs-on: self-hosted
 
