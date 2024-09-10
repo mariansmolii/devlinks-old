@@ -42,6 +42,7 @@
 
     @include mx.breakpoint(tablet) {
       width: 240px;
+      margin-right: 16px;
     }
   }
 
