@@ -39,19 +39,18 @@ const ProfileForm = () => {
   const { errors, values, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: {
-        image: imageFile,
         firstName: userFirstName || "",
         lastName: userLastName || "",
         emailPreview: userEmailPreview || "",
       },
       enableReinitialize: true,
       validationSchema: profileValidationSchema,
-      onSubmit: async ({ image, firstName, lastName, emailPreview }) => {
+      onSubmit: async ({ firstName, lastName, emailPreview }) => {
         const formData = new FormData();
 
         try {
-          if (image) {
-            formData.append("imageURL", image);
+          if (imageFile) {
+            formData.append("imageURL", imageFile);
 
             await dispatch(updateProfileImage(formData)).unwrap();
           }
@@ -200,7 +199,6 @@ const ProfileForm = () => {
         disabled={isLoading}
         variant={"primary"}
         type="submit"
-        className={styles.btn}
       />
     </form>
   );

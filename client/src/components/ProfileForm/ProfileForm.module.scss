@@ -6,6 +6,13 @@
   flex-direction: column;
   gap: 24px;
 
+  > button {
+    @include mx.breakpoint(tablet) {
+      max-width: 96px;
+      margin-left: auto;
+    }
+  }
+
   + div {
     @include mx.breakpoint(tablet) {
       display: flex;
@@ -35,6 +42,7 @@
 
     @include mx.breakpoint(tablet) {
       width: 240px;
+      margin-right: 16px;
     }
   }
 
