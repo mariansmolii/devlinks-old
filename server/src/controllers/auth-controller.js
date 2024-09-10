@@ -21,7 +21,9 @@ const register = async (req, res) => {
   });
 
   res.status(201).json({
-    email: newUser.email,
+    user: {
+      email: newUser.email,
+    },
   });
 };
 
@@ -43,7 +45,7 @@ const login = async (req, res) => {
     id: user._id,
   };
 
-  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '15m' });
+  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '23h' });
 
   await User.findByIdAndUpdate(user._id, { token });
 
@@ -51,6 +53,7 @@ const login = async (req, res) => {
     token,
     user: {
       email: user.email,
+      _id: user._id,
     },
   });
 };
@@ -68,7 +71,12 @@ const current = async (req, res) => {
 
   const currentUser = await User.findOne({ email }).select('-password');
 
-  res.json(currentUser);
+  const { token, ...userData } = currentUser._doc;
+
+  res.json({
+    user: userData,
+    token,
+  });
 };
 
 export default {
