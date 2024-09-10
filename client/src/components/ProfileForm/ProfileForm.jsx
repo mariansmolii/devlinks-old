@@ -200,7 +200,6 @@ const ProfileForm = () => {
         disabled={isLoading}
         variant={"primary"}
         type="submit"
-        className={styles.btn}
       />
     </form>
   );
