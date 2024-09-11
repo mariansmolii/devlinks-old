@@ -15,13 +15,16 @@ const Input = ({
   onBlur,
   iconName,
   error,
+  labelError = true,
 }) => {
   return (
     <div className={clsx(styles.wrapper, className)}>
       {label && (
         <label
           htmlFor={id}
-          className={clsx(styles.label, { [styles.error]: error })}
+          className={clsx(styles.label, {
+            [styles.error]: error && labelError,
+          })}
         >
           {label}
         </label>
@@ -57,4 +60,5 @@ Input.propTypes = {
   onBlur: PropTypes.func.isRequired,
   iconName: PropTypes.string,
   error: PropTypes.string,
+  labelError: PropTypes.bool,
 };
