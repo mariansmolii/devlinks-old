@@ -64,6 +64,9 @@ Input.propTypes = {
   iconName: PropTypes.string,
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   labelError: PropTypes.bool,
-  pattern: PropTypes.instanceOf(RegExp),
+  pattern: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(RegExp),
+  ]),
   inputStyle: PropTypes.string,
 };
