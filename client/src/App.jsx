@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Toaster } from "react-hot-toast";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { refreshUser } from "./store/auth/authOperations";
+import { getAllLinks } from "./store/links/linksOperations";
+import { getProfile } from "./store/profile/profileOperations";
 
 import PublicRoute from "./guards/PublicRoute";
 import PrivateRoute from "./guards/PrivateRoute";
@@ -16,10 +18,20 @@ import AuthLayout from "./layouts/AuthLayout/AuthLayout";
 
 const App = () => {
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
+
+  const paths = ["/", "/profile"].includes(pathname);
 
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (paths) {
+      dispatch(getAllLinks());
+      dispatch(getProfile());
+    }
+  }, [dispatch, paths]);
 
   return (
     <>
