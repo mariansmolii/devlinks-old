@@ -6,12 +6,6 @@ const options = [
     color: "#1A1A1A",
   },
   {
-    value: "frontendmentor",
-    label: "Frontend Mentor",
-    iconName: "icon-frontend-mentor",
-    color: "#FFFFFF",
-  },
-  {
     value: "twitter",
     label: "Twitter",
     iconName: "icon-twitter",

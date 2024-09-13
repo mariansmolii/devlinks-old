@@ -28,6 +28,15 @@ const LinksList = ({
     setInputValues(initialValues);
   }, [links, setInputValues]);
 
+  const updateErrors = (id, url, platform) => {
+    const { isError, message } = validateLinkInput(url, platform);
+
+    setErrors((prev) => ({
+      ...prev,
+      [id]: { isError, message },
+    }));
+  };
+
   const handleInput = (e, id, platform) => {
     const { value } = e.target;
 
@@ -38,12 +47,7 @@ const LinksList = ({
 
     dispatch(getLinkData({ _id: id, url: value }));
 
-    const { isError, message } = validateLinkInput(value, platform);
-
-    setErrors((prev) => ({
-      ...prev,
-      [id]: { isError, message },
-    }));
+    updateErrors(id, value, platform);
   };
 
   const handleSelectChange = (selectedOption, id) => {
@@ -55,6 +59,10 @@ const LinksList = ({
         platform: selectedOption,
       })
     );
+
+    const url = inputValues[id];
+
+    updateErrors(id, url, selectedOption);
   };
 
   const handleReorder = (newOrder) => {
