@@ -15,13 +15,18 @@ const Input = ({
   onBlur,
   iconName,
   error,
+  labelError = true,
+  pattern,
+  inputStyle,
 }) => {
   return (
     <div className={clsx(styles.wrapper, className)}>
       {label && (
         <label
           htmlFor={id}
-          className={clsx(styles.label, { [styles.error]: error })}
+          className={clsx(styles.label, {
+            [styles.error]: error && labelError,
+          })}
         >
           {label}
         </label>
@@ -36,7 +41,8 @@ const Input = ({
           value={value}
           onChange={onChange}
           onBlur={onBlur}
-          className={clsx({ [styles.error]: error })}
+          className={clsx(inputStyle, { [styles.error]: error })}
+          pattern={pattern}
         />
       </div>
     </div>
@@ -54,7 +60,13 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  onBlur: PropTypes.func.isRequired,
+  onBlur: PropTypes.func,
   iconName: PropTypes.string,
-  error: PropTypes.string,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  labelError: PropTypes.bool,
+  pattern: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(RegExp),
+  ]),
+  inputStyle: PropTypes.string,
 };

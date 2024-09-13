@@ -142,6 +142,7 @@ const ProfileForm = () => {
               onBlur={handleBlur}
               error={touched.firstName && errors.firstName}
               className={styles.input}
+              labelError={false}
             />
             {touched.firstName && errors.firstName ? (
               <div className={styles.error}>
@@ -162,6 +163,7 @@ const ProfileForm = () => {
               onBlur={handleBlur}
               error={touched.lastName && errors.lastName}
               className={clsx(styles.input)}
+              labelError={false}
             />
 
             {touched.lastName && errors.lastName ? (
@@ -183,6 +185,11 @@ const ProfileForm = () => {
               onBlur={handleBlur}
               error={touched.emailPreview && errors.emailPreview}
               className={styles.input}
+              labelError={false}
+              inputStyle={clsx(styles.input, {
+                [styles.inputError]:
+                  touched.emailPreview && errors.emailPreview,
+              })}
             />
 
             {touched.emailPreview && errors.emailPreview ? (
