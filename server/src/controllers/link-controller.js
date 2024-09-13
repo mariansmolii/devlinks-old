@@ -18,19 +18,6 @@ const createLink = async (req, res) => {
   res.status(201).json(result);
 };
 
-const updateLink = async (req, res) => {
-  const { _id: owner } = req.user;
-  const { linkId } = req.params;
-
-  const result = await Link.findOneAndUpdate({ _id: linkId, owner }, req.body);
-
-  if (!result) {
-    throw new HttpError(404);
-  }
-
-  res.json(result);
-};
-
 const deleteLink = async (req, res) => {
   const { _id: owner } = req.user;
   const { linkId } = req.params;
@@ -44,26 +31,31 @@ const deleteLink = async (req, res) => {
   res.json({ message: 'link deleted' });
 };
 
-const reorderLinks = async (req, res) => {
+const updateLinks = async (req, res) => {
   const { _id: owner } = req.user;
   const { links } = req.body;
 
-  const bulkOps = links.map(({ _id, index }) => ({
+  console.log(links, 'links');
+
+  const bulkOps = links.map(({ _id, index, platform, url }) => ({
     updateOne: {
       filter: { _id, owner },
-      update: { index },
+      update: { index, platform, url },
     },
   }));
 
   await Link.bulkWrite(bulkOps);
 
-  res.json({ message: 'links reordered' });
+  const updatedLinks = await Link.find({ owner });
+
+  res.json({
+    links: updatedLinks,
+  });
 };
 
 export default {
   getAllLinks: ctrlWrapper(getAllLinks),
   createLink: ctrlWrapper(createLink),
-  updateLink: ctrlWrapper(updateLink),
   deleteLink: ctrlWrapper(deleteLink),
-  reorderLinks: ctrlWrapper(reorderLinks),
+  updateLinks: ctrlWrapper(updateLinks),
 };
