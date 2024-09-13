@@ -1,5 +1,12 @@
 @use "../../../scss/utils/functions" as *;
 @use "../../../scss/utils/mixins" as mx;
+@use "../../../scss/utils/variables" as var;
+
+.item {
+  padding: 20px;
+  background-color: get-color("light-grey");
+  border-radius: var.$border-radius-xl;
+}
 
 .wrapper {
   @include mx.flex-center-vert;
@@ -9,6 +16,7 @@
   > div {
     @include mx.flex-center-vert;
     gap: 8px;
+    cursor: grabbing;
 
     > svg {
       fill: get-color("grey");

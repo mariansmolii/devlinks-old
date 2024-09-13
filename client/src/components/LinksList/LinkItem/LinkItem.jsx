@@ -1,18 +1,19 @@
 import { useId } from "react";
+import { Reorder, useDragControls, useMotionValue } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { deleteLinkLocally } from "../../../store/links/linksSlice";
 import { deleteLink } from "../../../store/links/linksOperations";
 
+import clsx from "clsx";
 import PropTypes from "prop-types";
 import Input from "../../Input/Input";
 import Icon from "../../Icon/Icon";
 import CustomSelect from "../../CustomSelect/CustomSelect";
 import getLinkSheme from "../../../utils/schemas/linkScheme";
-import ContentWrapper from "../../ContentWrapper/ContentWrapper";
 import getLinkPlaceholder from "../../../utils/helpers/getLinkPlaceholder";
 import styles from "./LinkItem.module.scss";
 import useLinks from "../../../hooks/useLinks";
-import clsx from "clsx";
+import useShadow from "../../../hooks/useShadow";
 
 const LinkItem = ({
   id,
@@ -23,9 +24,10 @@ const LinkItem = ({
   handleInput,
   isError,
   type,
-  url,
   index,
   errorMessage,
+  link,
+  inputValue,
 }) => {
   const platformId = useId();
   const linkId = useId();
@@ -46,10 +48,21 @@ const LinkItem = ({
     }
   };
 
+  const dragControls = useDragControls();
+  const y = useMotionValue(0);
+  const boxShadow = useShadow(y);
+
   return (
-    <ContentWrapper Tag="li">
+    <Reorder.Item
+      value={link}
+      id={id}
+      className={styles.item}
+      dragListener={false}
+      dragControls={dragControls}
+      style={{ boxShadow, y }}
+    >
       <div className={styles.wrapper}>
-        <div>
+        <div onPointerDown={(event) => dragControls.start(event)}>
           <Icon w={12} h={6} iconName="icon-drag-and-drop" />
           <p>Link #{index + 1}</p>
         </div>
@@ -75,7 +88,7 @@ const LinkItem = ({
           id={linkId}
           name="linkUrl"
           type="text"
-          value={url || ""}
+          value={inputValue || ""}
           onChange={(e) => handleInput(e, id, platform)}
           label={"Link"}
           iconName={"icon-link"}
@@ -88,7 +101,7 @@ const LinkItem = ({
 
         {isError && <p>{errorMessage}</p>}
       </div>
-    </ContentWrapper>
+    </Reorder.Item>
   );
 };
 
@@ -108,7 +121,13 @@ LinkItem.propTypes = {
   handleInput: PropTypes.func.isRequired,
   isError: PropTypes.bool,
   type: PropTypes.string,
-  url: PropTypes.string,
   index: PropTypes.number.isRequired,
   errorMessage: PropTypes.string,
+  link: PropTypes.shape({
+    _id: PropTypes.string,
+    platform: PropTypes.object,
+    url: PropTypes.string,
+    index: PropTypes.number,
+  }),
+  inputValue: PropTypes.string,
 };

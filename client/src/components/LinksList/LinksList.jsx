@@ -1,11 +1,13 @@
+import { Reorder } from "framer-motion";
 import { useDispatch } from "react-redux";
-import { getLinkData } from "../../store/links/linksSlice";
+import { useEffect, useState } from "react";
+import { getLinkData, updateLinkIndex } from "../../store/links/linksSlice";
 
 import PropTypes from "prop-types";
 import LinkItem from "./LinkItem/LinkItem";
 import options from "../../utils/data/selectData";
-import styles from "./LinksList.module.scss";
 import validateLinkInput from "../../utils/helpers/validateLinkInput";
+import styles from "./LinksList.module.scss";
 
 const LinksList = ({
   links,
@@ -15,11 +17,25 @@ const LinksList = ({
   setErrors,
 }) => {
   const dispatch = useDispatch();
+  const [inputValues, setInputValues] = useState({});
+
+  useEffect(() => {
+    const initialValues = links.reduce((acc, link) => {
+      acc[link._id] = link.url || "";
+      return acc;
+    }, {});
+    setInputValues(initialValues);
+  }, [links]);
 
   const handleInput = (e, id, platform) => {
     const { value } = e.target;
 
-    dispatch(getLinkData({ _id: id, url: value.trim() }));
+    setInputValues((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
+
+    dispatch(getLinkData({ _id: id, url: value }));
 
     const { isError, message } = validateLinkInput(value, platform);
 
@@ -40,26 +56,40 @@ const LinksList = ({
     );
   };
 
+  const handleReorder = (newOrder) => {
+    newOrder.forEach((link, newIndex) => {
+      dispatch(updateLinkIndex({ _id: link._id, index: newIndex }));
+    });
+  };
+
   return (
-    <ul className={styles.list}>
-      {links.map(({ _id, type, platform, url }, index) => (
+    <Reorder.Group
+      axis="y"
+      onReorder={handleReorder}
+      values={links}
+      as="ul"
+      className={styles.list}
+    >
+      {links.map((link, index) => (
         <LinkItem
-          key={_id}
-          id={_id}
+          key={link._id}
+          id={link._id}
+          link={link}
           handleSelectChange={handleSelectChange}
           handleInput={handleInput}
           selectedPlatform={selectedPlatform}
           setSelectedPlatform={setSelectedPlatform}
-          isError={errors[_id]?.isError}
+          isError={errors[link._id]?.isError}
           options={options}
-          type={type}
-          platform={platform}
-          url={url}
+          type={link.type}
+          platform={link.platform}
+          url={link.url}
           index={index}
-          errorMessage={errors[_id]?.message}
+          errorMessage={errors[link._id]?.message}
+          inputValue={inputValues[link._id]}
         />
       ))}
-    </ul>
+    </Reorder.Group>
   );
 };
 
