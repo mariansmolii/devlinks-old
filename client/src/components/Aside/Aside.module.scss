@@ -10,13 +10,13 @@
   border-radius: var.$border-radius-xl;
 
   @include mx.breakpoint(desktop) {
-    display: block;
+    @include mx.flex-center;
   }
 }
 
 .circle {
   position: absolute;
-  top: 167px;
+  top: 204px;
   left: 231px;
   width: 96px;
   height: 96px;
@@ -25,7 +25,7 @@
 }
 .img {
   position: absolute;
-  top: 167px;
+  top: 204px;
   left: 231px;
   width: 96px;
   height: 96px;
@@ -36,7 +36,7 @@
 
 .infoWrapper {
   position: absolute;
-  top: 287px;
+  top: 324px;
   left: 201px;
 
   @include mx.flex-center;
@@ -77,14 +77,14 @@
 }
 
 .emailBlock {
-  width: 140px;
+  width: 72px;
   height: 8px;
   background-color: get-color("very-light-grey");
   border-radius: var.$border-radius-xxl;
 
   &.isEmail {
     background-color: transparent;
-
+    width: 160px;
     @include mx.flex-center;
   }
 }
