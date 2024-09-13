@@ -16,19 +16,18 @@ import useLinks from "../../../hooks/useLinks";
 import useShadow from "../../../hooks/useShadow";
 
 const LinkItem = ({
-  id,
   handleSelectChange,
   selectedPlatform,
   options,
-  platform,
   handleInput,
   isError,
-  type,
   index,
   errorMessage,
   link,
   inputValue,
 }) => {
+  const { _id: id, platform, type } = link;
+
   const platformId = useId();
   const linkId = useId();
 
@@ -108,7 +107,6 @@ const LinkItem = ({
 export default LinkItem;
 
 LinkItem.propTypes = {
-  id: PropTypes.string.isRequired,
   handleSelectChange: PropTypes.func.isRequired,
   selectedPlatform: PropTypes.shape({
     label: PropTypes.string,
@@ -117,10 +115,8 @@ LinkItem.propTypes = {
     color: PropTypes.string,
   }),
   options: PropTypes.array.isRequired,
-  platform: PropTypes.object,
   handleInput: PropTypes.func.isRequired,
   isError: PropTypes.bool,
-  type: PropTypes.string,
   index: PropTypes.number.isRequired,
   errorMessage: PropTypes.string,
   link: PropTypes.shape({
@@ -128,6 +124,7 @@ LinkItem.propTypes = {
     platform: PropTypes.object,
     url: PropTypes.string,
     index: PropTypes.number,
+    type: PropTypes.string,
   }),
   inputValue: PropTypes.string,
 };

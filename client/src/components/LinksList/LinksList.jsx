@@ -1,6 +1,6 @@
 import { Reorder } from "framer-motion";
 import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getLinkData, updateLinkIndex } from "../../store/links/linksSlice";
 
 import PropTypes from "prop-types";
@@ -15,9 +15,10 @@ const LinksList = ({
   setSelectedPlatform,
   errors,
   setErrors,
+  inputValues,
+  setInputValues,
 }) => {
   const dispatch = useDispatch();
-  const [inputValues, setInputValues] = useState({});
 
   useEffect(() => {
     const initialValues = links.reduce((acc, link) => {
@@ -25,7 +26,7 @@ const LinksList = ({
       return acc;
     }, {});
     setInputValues(initialValues);
-  }, [links]);
+  }, [links, setInputValues]);
 
   const handleInput = (e, id, platform) => {
     const { value } = e.target;
@@ -73,7 +74,6 @@ const LinksList = ({
       {links.map((link, index) => (
         <LinkItem
           key={link._id}
-          id={link._id}
           link={link}
           handleSelectChange={handleSelectChange}
           handleInput={handleInput}
@@ -81,9 +81,6 @@ const LinksList = ({
           setSelectedPlatform={setSelectedPlatform}
           isError={errors[link._id]?.isError}
           options={options}
-          type={link.type}
-          platform={link.platform}
-          url={link.url}
           index={index}
           errorMessage={errors[link._id]?.message}
           inputValue={inputValues[link._id]}
@@ -109,4 +106,6 @@ LinksList.propTypes = {
     message: PropTypes.string,
   }),
   setErrors: PropTypes.func,
+  inputValues: PropTypes.object,
+  setInputValues: PropTypes.func,
 };
