@@ -110,3 +110,7 @@
     @include mx.font-size(12, 18);
   }
 }
+
+.inputError {
+  padding-right: 100px !important;
+}

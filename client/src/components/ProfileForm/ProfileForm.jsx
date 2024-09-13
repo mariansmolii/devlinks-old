@@ -186,6 +186,10 @@ const ProfileForm = () => {
               error={touched.emailPreview && errors.emailPreview}
               className={styles.input}
               labelError={false}
+              inputStyle={clsx(styles.input, {
+                [styles.inputError]:
+                  touched.emailPreview && errors.emailPreview,
+              })}
             />
 
             {touched.emailPreview && errors.emailPreview ? (
