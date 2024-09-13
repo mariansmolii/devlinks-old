@@ -16,9 +16,7 @@ linkRouter.get('/', linkController.getAllLinks);
 
 linkRouter.post('/', isEmptyBody, linkController.createLink);
 
-linkRouter.patch('/reorder', linkController.reorderLinks);
-
-linkRouter.patch('/:linkId', isValidId, linkController.updateLink);
+linkRouter.patch('/', linkController.updateLinks);
 
 linkRouter.delete('/:linkId', isValidId, linkController.deleteLink);
 
