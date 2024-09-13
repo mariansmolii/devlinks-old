@@ -4,7 +4,7 @@ import { handleSaveError, runValidatorAtUpdate } from './hooks.js';
 const linkSchema = new Schema(
   {
     platform: {
-      type: String,
+      type: Object,
       required: true,
     },
     url: {
