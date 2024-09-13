@@ -1,6 +1,7 @@
 import clsx from "clsx";
-import useProfile from "../../hooks/useProfile";
 import Icon from "../Icon/Icon";
+import LinksListPreview from "../LinksListPreview/LinksListPreview";
+import useProfile from "../../hooks/useProfile";
 import styles from "./Aside.module.scss";
 
 const Aside = () => {
@@ -36,6 +37,8 @@ const Aside = () => {
         </div>
       </div>
       <Icon iconName="icon-illustration-phone-mockup" w={307} h={631} />
+
+      <LinksListPreview />
     </aside>
   );
 };
