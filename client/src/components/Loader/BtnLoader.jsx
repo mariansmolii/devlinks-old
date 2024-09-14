@@ -6,7 +6,7 @@ const BtnLoader = () => {
       strokeColor="#010123"
       strokeWidth="5"
       animationDuration="0.75"
-      width="25"
+      width="24"
       visible={true}
     />
   );

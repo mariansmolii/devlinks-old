@@ -8,12 +8,11 @@
 
   @include mx.breakpoint(tablet) {
     padding: 82.5px 76.5px;
-    margin-bottom: 52px;
+    margin-bottom: 40px;
   }
 
   @include mx.breakpoint(desktop) {
-    padding: 87px 120px;
-    margin-bottom: 41.5px;
+    padding: 62.5px 120px;
   }
 
   > svg {

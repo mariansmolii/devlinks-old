@@ -2,6 +2,8 @@ import clsx from "clsx";
 import PropTypes from "prop-types";
 import Icon from "../Icon/Icon";
 import styles from "./Input.module.scss";
+import useScreenSize from "../../hooks/useScreenSize";
+import getErrorStyle from "../../utils/helpers/getErrorStyle";
 
 const Input = ({
   id,
@@ -14,18 +16,22 @@ const Input = ({
   onChange,
   onBlur,
   iconName,
-  error,
+  isError,
   labelError = true,
   pattern,
-  inputStyle,
+  errors = {},
 }) => {
+  const { width } = useScreenSize();
+
+  const errorStyle = getErrorStyle(width, isError, errors[name]?.length);
+
   return (
     <div className={clsx(styles.wrapper, className)}>
       {label && (
         <label
           htmlFor={id}
           className={clsx(styles.label, {
-            [styles.error]: error && labelError,
+            [styles.error]: isError && labelError,
           })}
         >
           {label}
@@ -41,8 +47,9 @@ const Input = ({
           value={value}
           onChange={onChange}
           onBlur={onBlur}
-          className={clsx(inputStyle, { [styles.error]: error })}
+          className={clsx({ [styles.error]: isError })}
           pattern={pattern}
+          style={{ paddingRight: errorStyle }}
         />
       </div>
     </div>
@@ -62,11 +69,11 @@ Input.propTypes = {
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func,
   iconName: PropTypes.string,
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  isError: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   labelError: PropTypes.bool,
   pattern: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.instanceOf(RegExp),
   ]),
-  inputStyle: PropTypes.string,
+  errors: PropTypes.object,
 };

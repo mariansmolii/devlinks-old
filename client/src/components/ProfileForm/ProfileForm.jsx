@@ -10,7 +10,6 @@ import {
   updateImage,
 } from "../../store/profile/profileSlice";
 
-import clsx from "clsx";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Uploader from "../Uploader/Uploader";
@@ -52,7 +51,7 @@ const ProfileForm = () => {
           if (imageFile) {
             formData.append("imageURL", imageFile);
 
-            await dispatch(updateProfileImage(formData)).unwrap();
+            await dispatch(updateProfileImage(formData));
           }
 
           if (firstName.trim() || lastName.trim()) {
@@ -63,7 +62,7 @@ const ProfileForm = () => {
                 emailPreview,
                 id: userId,
               })
-            ).unwrap();
+            );
           }
 
           toast.custom((t) => (
@@ -140,9 +139,10 @@ const ProfileForm = () => {
               type="text"
               onChange={handleInputChange}
               onBlur={handleBlur}
-              error={touched.firstName && errors.firstName}
+              isError={touched.firstName && errors.firstName}
               className={styles.input}
               labelError={false}
+              errors={errors}
             />
             {touched.firstName && errors.firstName ? (
               <div className={styles.error}>
@@ -161,9 +161,10 @@ const ProfileForm = () => {
               type="text"
               onChange={handleInputChange}
               onBlur={handleBlur}
-              error={touched.lastName && errors.lastName}
-              className={clsx(styles.input)}
+              isError={touched.lastName && errors.lastName}
+              className={styles.input}
               labelError={false}
+              errors={errors}
             />
 
             {touched.lastName && errors.lastName ? (
@@ -183,13 +184,10 @@ const ProfileForm = () => {
               type="email"
               onChange={handleInputChange}
               onBlur={handleBlur}
-              error={touched.emailPreview && errors.emailPreview}
+              isError={touched.emailPreview && errors.emailPreview}
+              errors={errors}
               className={styles.input}
               labelError={false}
-              inputStyle={clsx(styles.input, {
-                [styles.inputError]:
-                  touched.emailPreview && errors.emailPreview,
-              })}
             />
 
             {touched.emailPreview && errors.emailPreview ? (

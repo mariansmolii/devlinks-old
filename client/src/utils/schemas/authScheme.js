@@ -19,7 +19,7 @@ export const registerValidationScheme = Yup.object({
     .min(8, "At least 8 characters")
     .required("Can't be empty"),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "Passwords must match.")
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
     .required("Can't be empty"),
 });
 

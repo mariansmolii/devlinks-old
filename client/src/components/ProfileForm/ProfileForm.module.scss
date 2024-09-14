@@ -28,10 +28,15 @@
   }
 
   + div {
+    padding-bottom: 24px;
     border-bottom: 1px solid get-color("border");
 
     @include mx.breakpoint(tablet) {
-      padding-bottom: 153px;
+      padding-bottom: 142px;
+    }
+
+    @include mx.breakpoint(desktop) {
+      padding-bottom: 102px;
     }
   }
 
@@ -109,8 +114,4 @@
 
     @include mx.font-size(12, 18);
   }
-}
-
-.inputError {
-  padding-right: 100px !important;
 }

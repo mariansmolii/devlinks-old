@@ -9,6 +9,7 @@
 
   @include mx.breakpoint(tablet) {
     padding: 40px;
+    padding-bottom: 24px;
   }
 
   @include mx.breakpoint(desktop) {

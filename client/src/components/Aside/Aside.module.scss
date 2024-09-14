@@ -16,7 +16,7 @@
 
 .circle {
   position: absolute;
-  top: 204px;
+  top: 170px;
   left: 231px;
   width: 96px;
   height: 96px;
@@ -25,7 +25,7 @@
 }
 .img {
   position: absolute;
-  top: 204px;
+  top: 170px;
   left: 231px;
   width: 96px;
   height: 96px;
@@ -36,7 +36,7 @@
 
 .infoWrapper {
   position: absolute;
-  top: 324px;
+  top: 290px;
   left: 201px;
 
   @include mx.flex-center;
