@@ -5,7 +5,6 @@
 .section {
   @include mx.breakpoint(desktop) {
     width: 808px;
-    height: 908px;
   }
 }
 
@@ -17,7 +16,7 @@
   overflow-y: auto;
   margin-bottom: 24px;
 
-  height: 495px;
+  height: 383px;
   padding-right: 10px;
 
   &::-webkit-scrollbar {
@@ -36,11 +35,11 @@
   }
 
   @include mx.breakpoint(tablet) {
-    height: 543px;
+    height: 531px;
   }
 
   @include mx.breakpoint(desktop) {
-    height: 542px;
+    height: 491px;
   }
 }
 
