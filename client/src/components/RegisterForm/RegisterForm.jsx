@@ -36,7 +36,7 @@ const RegisterForm = () => {
       }
 
       try {
-        await dispatch(register({ email, password }));
+        await dispatch(register({ email, password })).unwrap();
 
         toast.custom((t) => (
           <CustomToast

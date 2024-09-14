@@ -35,7 +35,7 @@ const LoginForm = () => {
       }
 
       try {
-        await dispatch(login({ email, password }));
+        await dispatch(login({ email, password })).unwrap();
 
         resetForm();
       } catch (error) {

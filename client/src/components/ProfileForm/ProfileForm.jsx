@@ -51,7 +51,7 @@ const ProfileForm = () => {
           if (imageFile) {
             formData.append("imageURL", imageFile);
 
-            await dispatch(updateProfileImage(formData));
+            await dispatch(updateProfileImage(formData)).unwrap();
           }
 
           if (firstName.trim() || lastName.trim()) {
@@ -62,7 +62,7 @@ const ProfileForm = () => {
                 emailPreview,
                 id: userId,
               })
-            );
+            ).unwrap();
           }
 
           toast.custom((t) => (
