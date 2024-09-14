@@ -36,7 +36,7 @@ const RegisterForm = () => {
       }
 
       try {
-        await dispatch(register({ email, password })).unwrap();
+        await dispatch(register({ email, password }));
 
         toast.custom((t) => (
           <CustomToast
@@ -72,8 +72,9 @@ const RegisterForm = () => {
           onBlur={handleBlur}
           value={values.email}
           iconName="icon-email"
-          error={touched.email && errors.email}
+          isError={touched.email && errors.email}
           className={styles.wrapper}
+          errors={errors}
         />
 
         {touched.email && errors.email ? (
@@ -94,7 +95,8 @@ const RegisterForm = () => {
           onBlur={handleBlur}
           value={values.password}
           iconName="icon-password"
-          error={touched.password && errors.password}
+          isError={touched.password && errors.password}
+          errors={errors}
           className={styles.wrapper}
         />
         {touched.password && errors.password ? (
@@ -115,8 +117,9 @@ const RegisterForm = () => {
           onBlur={handleBlur}
           value={values.confirmPassword}
           iconName="icon-password"
-          error={touched.confirmPassword && errors.confirmPassword}
+          isError={touched.confirmPassword && errors.confirmPassword}
           className={styles.wrapper}
+          errors={errors}
         />
         {touched.confirmPassword && errors.confirmPassword ? (
           <div className={styles.error}>

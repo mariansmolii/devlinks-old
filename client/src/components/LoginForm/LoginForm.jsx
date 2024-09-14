@@ -35,7 +35,7 @@ const LoginForm = () => {
       }
 
       try {
-        await dispatch(login({ email, password })).unwrap();
+        await dispatch(login({ email, password }));
 
         resetForm();
       } catch (error) {
@@ -63,7 +63,8 @@ const LoginForm = () => {
           onBlur={handleBlur}
           value={values.email}
           iconName="icon-email"
-          error={touched.email && errors.email}
+          isError={touched.email && errors.email}
+          errors={errors}
         />
 
         {touched.email && errors.email ? (
@@ -84,7 +85,8 @@ const LoginForm = () => {
           onBlur={handleBlur}
           value={values.password}
           iconName="icon-password"
-          error={touched.password && errors.password}
+          isError={touched.password && errors.password}
+          errors={errors}
         />
         {touched.password && errors.password ? (
           <div className={styles.error}>
