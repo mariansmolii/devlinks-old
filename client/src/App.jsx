@@ -15,12 +15,13 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import LinksPage from "./pages/LinksPage/LinksPage";
 import MainLayout from "./layouts/MainLayout/MainLayout";
 import AuthLayout from "./layouts/AuthLayout/AuthLayout";
+import PreviewPage from "./pages/PreviewPage/PreviewPage";
 
 const App = () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
-  const paths = ["/", "/profile"].includes(pathname);
+  const paths = ["/", "/profile", "/preview"].includes(pathname);
 
   useEffect(() => {
     dispatch(refreshUser());
@@ -50,6 +51,14 @@ const App = () => {
             element={
               <PrivateRoute>
                 <ProfilePage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="preview"
+            element={
+              <PrivateRoute>
+                <PreviewPage />
               </PrivateRoute>
             }
           />

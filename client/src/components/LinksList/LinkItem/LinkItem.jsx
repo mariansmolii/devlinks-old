@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { deleteLinkLocally } from "../../../store/links/linksSlice";
 import { deleteLink } from "../../../store/links/linksOperations";
 
-import clsx from "clsx";
 import PropTypes from "prop-types";
 import Input from "../../Input/Input";
 import Icon from "../../Icon/Icon";
@@ -93,9 +92,9 @@ const LinkItem = ({
           iconName={"icon-link"}
           placeholder={getLinkPlaceholder(platform)}
           pattern={getLinkSheme(platform)}
-          error={isError}
+          isError={isError}
           className={styles.container}
-          inputStyle={clsx(styles.input, { [styles.error]: isError })}
+          errors={{ linkUrl: errorMessage }}
         />
 
         {isError && <p>{errorMessage}</p>}
