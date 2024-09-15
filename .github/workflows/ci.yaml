@@ -18,7 +18,7 @@ on:
 jobs:
   build:
     name: test and build
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     permissions:
       pull-requests: read
@@ -85,7 +85,7 @@ jobs:
     needs: [build]
     if: ${{ github.ref == 'refs/heads/main' && (needs.build.outputs.client == 'true' || needs.build.outputs.server == 'true') }}
 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Set up QEMU
