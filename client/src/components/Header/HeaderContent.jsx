@@ -1,13 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import clsx from "clsx";
 import AuthLogo from "../Logo/Logo";
 import Icon from "../Icon/Icon";
 import Navigation from "../Navigation/Navigation";
+import PreviewNavigation from "../Navigation/PreviewNavigation/PreviewNavigation";
 import styles from "./Header.module.scss";
 
 const HeaderContent = () => {
-  return (
+  const location = useLocation();
+  const isPreviewPage = location.pathname === "/preview";
+
+  return !isPreviewPage ? (
     <>
       <Link to="/">
         <AuthLogo />
@@ -15,11 +19,17 @@ const HeaderContent = () => {
 
       <Navigation />
 
-      <Link to="/preview" className={clsx(styles.navLink)}>
+      <Link
+        to="/preview"
+        state={{ from: location }}
+        className={clsx(styles.navLink)}
+      >
         <Icon iconName="icon-preview" w={20} />
         <p>Preview</p>
       </Link>
     </>
+  ) : (
+    <PreviewNavigation />
   );
 };
 

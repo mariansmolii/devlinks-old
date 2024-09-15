@@ -74,9 +74,3 @@
     }
   }
 }
-
-.error {
-  @include mx.breakpoint(tablet) {
-    padding-right: 135px !important;
-  }
-}

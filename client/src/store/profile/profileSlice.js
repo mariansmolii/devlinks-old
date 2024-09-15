@@ -51,7 +51,7 @@ const profileSlice = createSlice({
         };
       })
       .addCase(updateProfileImage.fulfilled, (state, { payload }) => {
-        state.user.image = payload;
+        state.user.image = payload.image;
       })
       .addCase(updateProfileInfo.fulfilled, (state, { payload }) => {
         const { emailPreview, firstName, lastName } = payload;
