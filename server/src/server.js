@@ -7,6 +7,7 @@ import env from './utils/env.js';
 import authRouter from './routers/api/auth-router.js';
 import profileRouter from './routers/api/profile-router.js';
 import linkRouter from './routers/api/link-router.js';
+import shareRouter from './routers/api/share-router.js';
 
 const PORT = env('PORT', 3000);
 
@@ -27,6 +28,7 @@ const startServer = () => {
   app.use('/api/auth', authRouter);
   app.use('/api/profile', profileRouter);
   app.use('/api/links', linkRouter);
+  app.use('/api/share', shareRouter);
 
   app.use('*', (req, res, next) => {
     res.status(404).json({
