@@ -15,8 +15,6 @@ const getShareData = async (req, res) => {
     throw HttpError(404, 'User not found');
   }
 
-  console.log('owner', owner);
-
   const profile = await Profile.findOne({ owner });
   const links = await Link.find({ owner });
 
