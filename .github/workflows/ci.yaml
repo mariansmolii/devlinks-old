@@ -19,13 +19,16 @@ jobs:
   build:
     name: test and build
     runs-on: ubuntu-latest
-
     permissions:
       pull-requests: read
 
-    outputs:
-      client: ${{ steps.filter.outputs.client }}
-      server: ${{ steps.filter.outputs.server }}
+    # outputs:
+    #   client: ${{ steps.filter.outputs.client }}
+    #   server: ${{ steps.filter.outputs.server }}
+
+    strategy:
+      matrix:
+        target: [client, server]
 
     env:
       NODE_VERSION: "22"
@@ -55,32 +58,25 @@ jobs:
               - "!server/Dockerfile.dev"
               - "!server/.dockerignore"
 
-      - name: Debug Paths Filter Outputs
-        run: |
-          echo "Client changed: ${{ steps.filter.outputs.client }}"
-          echo "Server changed: ${{ steps.filter.outputs.server }}"
-          echo "Selected workdir: ${{ steps.filter.outputs.client == 'true' && 'client' || 'server' }}"
-          echo "Cache path: ${{ steps.filter.outputs.client == 'true' && 'client' || 'server' }}/package-lock.json"
-
       - name: Install node
-        if: steps.filter.outputs.client == 'true' || steps.filter.outputs.server == 'true'
+        if: ${{ matrix.target == 'client' && needs.build.outputs.client == 'true' || matrix.target == 'server' && needs.build.outputs.server == 'true' }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: "npm"
-          cache-dependency-path: ${{ steps.filter.outputs.client == 'true' && 'client' || 'server' }}/package-lock.json
+          cache-dependency-path: ${{ matrix.target }}/package-lock.json
 
       - name: Install dependencies
-        if: steps.filter.outputs.client == 'true' || steps.filter.outputs.server == 'true'
+        if: ${{ matrix.target == 'client' && needs.build.outputs.client == 'true' || matrix.target == 'server' && needs.build.outputs.server == 'true' }}
         run: npm install
-        working-directory: ${{ steps.filter.outputs.client == 'true' && 'client' || 'server' }}
+        working-directory: ${{ matrix.target }}
 
       - name: Lint and test
-        if: steps.filter.outputs.client == 'true' || steps.filter.outputs.server == 'true'
+        if: ${{ matrix.target == 'client' && needs.build.outputs.client == 'true' || matrix.target == 'server' && needs.build.outputs.server == 'true' }}
         run: |
           npm run lint
           echo "npm run test"
-        working-directory: ${{ steps.filter.outputs.client == 'true' || steps.filter.outputs.server == 'true' }}
+        working-directory: ${{ matrix.target }}
 
       - name: Build
         if: steps.filter.outputs.client == 'true'
