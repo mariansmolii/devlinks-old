@@ -22,6 +22,7 @@ const Aside = () => {
 
   console.log("sec");
   console.log("dsad");
+  console.log("asd");
 
   return (
     <aside className={styles.aside}>
