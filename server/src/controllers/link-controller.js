@@ -9,8 +9,6 @@ const getAllLinks = async (req, res) => {
 
   console.log('a');
   console.log('b');
-  console.log('c');
-  console.log('d');
 
   res.json(result);
 };

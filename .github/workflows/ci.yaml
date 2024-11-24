@@ -73,7 +73,7 @@ jobs:
         working-directory: ${{ matrix.directory }}
 
       - name: Build
-        if: matrix.directory == 'client' && steps.filter.outputs.client == 'true' || matrix.directory == 'server' && steps.filter.outputs.server == 'true'
+        if: matrix.directory == 'client' && steps.filter.outputs.client == 'true'
         run: npm run build
         working-directory: ${{ matrix.directory }}
 
