@@ -10,7 +10,6 @@ COPY . ./
 
 RUN npm run build
 
-
 FROM nginx:alpine3.19
 
 WORKDIR /usr/share/nginx/html
