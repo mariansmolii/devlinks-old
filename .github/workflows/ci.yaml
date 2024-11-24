@@ -55,6 +55,13 @@ jobs:
               - "!server/Dockerfile.dev"
               - "!server/.dockerignore"
 
+      - name: Debug Paths Filter Outputs
+        run: |
+          echo "Client changed: ${{ steps.filter.outputs.client }}"
+          echo "Server changed: ${{ steps.filter.outputs.server }}"
+          echo "Selected workdir: ${{ steps.filter.outputs.client == 'true' && 'client' || 'server' }}"
+          echo "Cache path: ${{ steps.filter.outputs.client == 'true' && 'client' || 'server' }}/package-lock.json"
+
       - name: Install node
         if: steps.filter.outputs.client == 'true' || steps.filter.outputs.server == 'true'
         uses: actions/setup-node@v4
