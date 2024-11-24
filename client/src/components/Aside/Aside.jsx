@@ -18,6 +18,8 @@ const Aside = () => {
 
   console.log("so bad");
 
+  console.log("first");
+
   return (
     <aside className={styles.aside}>
       {imagePreview || image ? (

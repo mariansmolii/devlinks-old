@@ -80,7 +80,7 @@ jobs:
         run: |
           npm run lint
           echo "npm run test"
-        working-directory: ${{ steps.filter.outputs.client == 'true' && 'client' || 'server' }}
+        working-directory: ${{ steps.filter.outputs.client == 'true' || steps.filter.outputs.server == 'true' }}
 
       - name: Build
         if: steps.filter.outputs.client == 'true'
