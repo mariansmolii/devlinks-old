@@ -4,21 +4,21 @@ on:
   push:
     branches:
       - main
-      - client-dev
-      - server-dev
-    paths-ignore:
-      - ".github/**"
+    paths:
+      - "client/**"
+      - "server/**"
   pull_request:
     branches:
       - main
-    paths-ignore:
-      - ".github/**"
+    paths:
+      - "client/**"
+      - "server/**"
     types: [opened, synchronize]
 
 jobs:
   build:
     name: test and build
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     permissions:
       pull-requests: read
@@ -28,7 +28,7 @@ jobs:
       server: ${{ steps.filter.outputs.server }}
 
     env:
-      NODE_VERSION: "20"
+      NODE_VERSION: "22"
 
     steps:
       - name: Checkout code
@@ -45,13 +45,17 @@ jobs:
               - "!client/.gitignore"
               - "!client/*.md"
               - "!client/.env.example"
+              - "!client/Dockerfile.dev"
+              - "!client/.dockerignore"
             server: 
               - "server/**"
               - "!server/.gitignore"
               - "!server/*.md"
               - "!server/.env.example"
+              - "!server/Dockerfile.dev"
+              - "!server/.dockerignore"
 
-      - name: Set env
+      - name: Set env for WORKDIR
         run: echo "WORKDIR=${{ steps.filter.outputs.client == 'true' && 'client' || 'server' }}" >> $GITHUB_ENV
 
       - name: Install node
@@ -85,7 +89,7 @@ jobs:
     needs: [build]
     if: ${{ github.ref == 'refs/heads/main' && (needs.build.outputs.client == 'true' || needs.build.outputs.server == 'true') }}
 
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - name: Set up QEMU
@@ -105,4 +109,7 @@ jobs:
         with:
           context: "{{defaultContext}}:${{ needs.build.outputs.client == 'true' && 'client' || 'server' }}"
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/devlinks-${{ needs.build.outputs.client == 'true' && 'client' || 'server' }}:v${{ github.run_number }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/devlinks-test-${{ needs.build.outputs.client == 'true' && 'client' || 'server' }}:v${{ github.run_number }}
+          build-args: |
+            VITE_BACKEND_URL=${{ secrets.VITE_BACKEND_URL }}
+            VITE_FRONTEND_URL=${{ secrets.VITE_FRONTEND_URL }}

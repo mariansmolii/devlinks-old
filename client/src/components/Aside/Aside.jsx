@@ -8,6 +8,8 @@ const Aside = () => {
   const { image, imagePreview, fullName, emailPreview, lastName, firstName } =
     useProfile();
 
+  console.log("heell");
+
   return (
     <aside className={styles.aside}>
       {imagePreview || image ? (

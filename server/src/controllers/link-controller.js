@@ -7,6 +7,8 @@ const getAllLinks = async (req, res) => {
 
   const result = await Link.find({ owner });
 
+  console.log('a');
+
   res.json(result);
 };
 
