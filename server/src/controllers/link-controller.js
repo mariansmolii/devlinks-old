@@ -12,12 +12,6 @@ const getAllLinks = async (req, res) => {
   console.log('c');
   console.log('d');
 
-  console.log('b');
-  console.log('asd');
-  console.log('asd');
-  console.log('asd');
-  console.log('asd');
-
   res.json(result);
 };
 

@@ -20,12 +20,6 @@ const Aside = () => {
 
   console.log("first");
 
-  console.log("sec");
-  console.log("dsad");
-  console.log("asd");
-  console.log("asd");
-  console.log("asd");
-
   return (
     <aside className={styles.aside}>
       {imagePreview || image ? (
