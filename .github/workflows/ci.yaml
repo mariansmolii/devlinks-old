@@ -22,9 +22,9 @@ jobs:
     permissions:
       pull-requests: read
 
-    # outputs:
-    #   client: ${{ steps.filter.outputs.client }}
-    #   server: ${{ steps.filter.outputs.server }}
+    outputs:
+      client: ${{ steps.filter.outputs.client }}
+      server: ${{ steps.filter.outputs.server }}
 
     env:
       NODE_VERSION: "22"
