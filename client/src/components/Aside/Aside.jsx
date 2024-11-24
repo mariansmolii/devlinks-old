@@ -12,6 +12,8 @@ const Aside = () => {
 
   console.log("sad");
 
+  console.log("bad");
+
   return (
     <aside className={styles.aside}>
       {imagePreview || image ? (
