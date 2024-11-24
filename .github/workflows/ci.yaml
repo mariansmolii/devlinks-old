@@ -55,28 +55,25 @@ jobs:
               - "!server/Dockerfile.dev"
               - "!server/.dockerignore"
 
-      - name: Set env for WORKDIR
-        run: echo "WORKDIR=${{ steps.filter.outputs.client == 'true' && 'client' || 'server' }}" >> $GITHUB_ENV
-
       - name: Install node
         if: steps.filter.outputs.client == 'true' || steps.filter.outputs.server == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: "npm"
-          cache-dependency-path: ${{ env.WORKDIR }}/package-lock.json
+          cache-dependency-path: ${{ steps.filter.outputs.client == 'true' && 'client' || 'server' }}/package-lock.json
 
       - name: Install dependencies
         if: steps.filter.outputs.client == 'true' || steps.filter.outputs.server == 'true'
         run: npm install
-        working-directory: ${{ env.WORKDIR }}
+        working-directory: ${{ steps.filter.outputs.client == 'true' && 'client' || 'server' }}
 
       - name: Lint and test
         if: steps.filter.outputs.client == 'true' || steps.filter.outputs.server == 'true'
         run: |
           npm run lint
           echo "npm run test"
-        working-directory: ${{ env.WORKDIR }}
+        working-directory: ${{ steps.filter.outputs.client == 'true' && 'client' || 'server' }}
 
       - name: Build
         if: steps.filter.outputs.client == 'true'

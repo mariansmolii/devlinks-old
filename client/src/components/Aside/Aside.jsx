@@ -10,6 +10,8 @@ const Aside = () => {
 
   console.log("heell");
 
+  console.log("sad");
+
   return (
     <aside className={styles.aside}>
       {imagePreview || image ? (
