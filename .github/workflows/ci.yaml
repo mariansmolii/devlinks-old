@@ -4,15 +4,9 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "client/**"
-      - "server/**"
   pull_request:
     branches:
       - main
-    paths:
-      - "client/**"
-      - "server/**"
     types: [opened, synchronize]
 
 jobs:
@@ -107,31 +101,21 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # - name: Build and push client
-      #   if: needs.build.outputs.client == 'true'
-      #   uses: docker/build-push-action@v6
-      #   with:
-      #     context: "{{defaultContext}}:client"
-      #     push: true
-      #     tags: ${{ secrets.DOCKERHUB_USERNAME }}/devlinks-test-client:v${{ github.run_number }}
-      #     build-args: |
-      #       VITE_BACKEND_URL=${{ secrets.VITE_BACKEND_URL }}
-      #       VITE_FRONTEND_URL=${{ secrets.VITE_FRONTEND_URL }}
-
-      # - name: Build and push server
-      #   if: needs.build.outputs.server == 'true'
-      #   uses: docker/build-push-action@v6
-      #   with:
-      #     context: "{{defaultContext}}:server"
-      #     push: true
-      #     tags: ${{ secrets.DOCKERHUB_USERNAME }}/devlinks-test-server:v${{ github.run_number }}
-
-      - name: Build and push
+      - name: Build and push client
+        if: needs.build.outputs.client == 'true'
         uses: docker/build-push-action@v6
         with:
-          context: "{{defaultContext}}:${{ needs.build.outputs.client == 'true' && 'client' || needs.build.outputs.server == 'true' && 'server' }}"
+          context: "{{defaultContext}}:client"
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/devlinks-${{ needs.build.outputs.client == 'true' && 'client' || 'server' }}:v${{ github.run_number }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/devlinks-test-client:v${{ github.run_number }}
           build-args: |
             VITE_BACKEND_URL=${{ secrets.VITE_BACKEND_URL }}
             VITE_FRONTEND_URL=${{ secrets.VITE_FRONTEND_URL }}
+
+      - name: Build and push server
+        if: needs.build.outputs.server == 'true'
+        uses: docker/build-push-action@v6
+        with:
+          context: "{{defaultContext}}:server"
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/devlinks-test-server:v${{ github.run_number }}
