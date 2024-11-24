@@ -21,6 +21,7 @@ const Aside = () => {
   console.log("first");
 
   console.log("sec");
+  console.log("dsad");
 
   return (
     <aside className={styles.aside}>

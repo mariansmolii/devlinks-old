@@ -16,6 +16,7 @@ const getAllLinks = async (req, res) => {
   const heheh=a;
 
   console.log('v')
+  console.log('b')
 
   res.json(result);
 };
